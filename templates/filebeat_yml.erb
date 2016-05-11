@@ -1,0 +1,75 @@
+#  ______________________________________
+# / NOTE: this file is managed by Puppet \
+# \ - do not change it here, ever!        /
+#  --------------------------------------
+#         \   ^__^
+#          \  (OO)\_______
+#             (__)\       )\/\
+#                 ||----w |
+#                 ||     ||
+#
+# ----------------------------------------
+#
+#
+# Filebeat Configuration
+#   -  this config file  <%= @configfile %>
+#   -  manages the system logs only
+#   -  application log prospectors live in <%= @config_dir %>
+#   -  please keep it simple ...
+#
+#
+filebeat:
+  # List of prospectors to fetch data.
+  prospectors:
+    # Each - is a prospector.
+    -
+      paths:
+        - /var/log/*.log
+
+      input_type: log
+
+      ignore_older: 24h
+
+      document_type: syslog
+
+
+  # Event count spool threshold
+  spool_size: 1024
+
+  # After idle_timeout the spooler is Flush even though spool_size is not reached.
+  idle_timeout: 5s
+
+  # Name of the registry file. 
+  registry_file: <%= @configfile %>
+
+  # Full Path to directory with additional prospector configuration files.
+  config_dir: <%= @config_dir %>
+
+
+# Output Configuration
+output:
+  logstash:
+    hosts: ["<%= @log_reveiver %>:5044"]
+
+    tls:
+      certificate: "<%= @filebeat_cert %>"
+      certificate_key: "<%= @filebeat_key %>"
+
+    index: filebeat
+
+# the shipper configuration is empty but mandatory ...
+shipper:
+
+
+# Logging
+logging:
+  to_files: true
+
+  files:
+    path: /var/log/
+    name: filebeat
+    rotateeverybytes: 10485760
+    keepfiles: 7
+
+
+# vim: set ts=2 sw=2 et :
