@@ -97,5 +97,5 @@ openssl req -x509 -batch -nodes -newkey rsa:2048 -keyout private/logstash-beats.
 
 ### License
 
-Please see the [LICENSE](https://github.com/addi-abel/addis-filebeat/blob/master/LICENSE.md) file.
+Please see the [LICENSE](https://github.com/LandRegistry-Ops/puppet-filebeat/blob/master/LICENSE.md) file.
 
