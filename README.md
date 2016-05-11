@@ -1,4 +1,4 @@
-# filebeat
+# Land Registry's Filebeat Install
 
 A puppet module to manage the Elasticsearch filebeat install
 
