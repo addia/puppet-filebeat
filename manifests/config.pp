@@ -11,6 +11,7 @@
 #
 class filebeat::config (
   $package_name       = $filebeat::params::package_name,
+  $log_receiver       = $filebeat::params::log_receiver,
   $user               = $filebeat::params::user,
   $group              = $filebeat::params::group,
   $configfile         = $filebeat::params::configfile,
@@ -40,16 +41,6 @@ class filebeat::config (
     mode              => '0755'
   }
 
-  file { $configfile: 
-    ensure            => file,
-    owner             => $user,
-    group             => $group,
-    mode              => '0644',
-    replace           => 'no',
-    content           => template('filebeat/filebeat_yml.erb'),
-    notify            => Service[$service_name]
-  }
-
   file { "$ssl_dir/$ssl_key":
     ensure            => file,
     owner             => $user,
@@ -65,6 +56,22 @@ class filebeat::config (
     mode              => '0644',
     content           => hiera('elk_stack_filebeat_cert')
   }
+
+  exec { 'remove_example_config':
+    command => "rm -f ${configfile}",
+    onlyif  => "grep Example ${configfile}",
+  } ~>
+
+  file { $configfile: 
+    ensure            => file,
+    owner             => $user,
+    group             => $group,
+    mode              => '0644',
+    replace           => 'no',
+    content           => template('filebeat/filebeat_yml.erb'),
+    notify            => Service[$service_name]
+  }
+
 
 }
 
