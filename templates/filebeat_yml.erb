@@ -49,7 +49,7 @@ filebeat:
 # Output Configuration
 output:
   logstash:
-    hosts: ["<%= @log_receiver %>:5044"]
+    hosts: [ "<%= @log_receiver %>:5044" ]
 
     tls:
       certificate: "<%= @filebeat_cert %>"

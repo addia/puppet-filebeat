@@ -59,7 +59,7 @@ class filebeat::config (
 
   exec { 'remove_example_config':
     command => "rm -f ${configfile}",
-    onlyif  => "grep Example ${configfile}",
+    onlyif  => "grep -c Example ${configfile}",
   } ~>
 
   file { $configfile: 
