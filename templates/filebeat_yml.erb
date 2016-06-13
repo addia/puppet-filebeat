@@ -25,6 +25,8 @@ filebeat:
     -
       paths:
         - /var/log/*.log
+        - /var/log/messages
+        - /var/log/syslog
 
       input_type: log
 

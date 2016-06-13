@@ -10,70 +10,75 @@
 # ===========================
 #
 class filebeat::config (
-  $package_name       = $filebeat::params::package_name,
-  $log_receiver       = $filebeat::params::log_receiver,
-  $user               = $filebeat::params::user,
-  $group              = $filebeat::params::group,
-  $configfile         = $filebeat::params::configfile,
-  $config_dir         = $filebeat::params::config_dir,
-  $ssl_dir            = $filebeat::params::ssl_dir,
-  $ssl_key            = $filebeat::params::ssl_key,
-  $ssl_cert           = $filebeat::params::ssl_cert,
-  $service_name       = $filebeat::params::service_name
-  ) inherits filebeat::params {
+  $package_name                = $filebeat::params::package_name,
+  $log_receiver                = $filebeat::params::log_receiver,
+  $user                        = $filebeat::params::user,
+  $group                       = $filebeat::params::group,
+  $configfile                  = $filebeat::params::configfile,
+  $config_dir                  = $filebeat::params::config_dir,
+  $ssl_dir                     = $filebeat::params::ssl_dir,
+  $ssl_key                     = $filebeat::params::ssl_key,
+  $ssl_cert                    = $filebeat::params::ssl_cert,
+  $service_name                = $filebeat::params::service_name
+) inherits filebeat::params {
 
   notify { "## --->>> Creating config files for: ${package_name}": }
 
-  $filebeat_cert      = "$ssl_dir/$ssl_cert"
-  $filebeat_key       = "$ssl_dir/$ssl_key"
+  $filebeat_cert               = "$ssl_dir/$ssl_cert"
+  $filebeat_key                = "$ssl_dir/$ssl_key"
 
   file { $config_dir: 
-    ensure            => directory,
-    owner             => $user,
-    group             => $group,
-    mode              => '0755'
-  }
+    ensure                     => directory,
+    owner                      => $user,
+    group                      => $group,
+    mode                       => '0755'
+    }
 
   file { $ssl_dir:
-    ensure            => directory,
-    owner             => $user,
-    group             => $group,
-    mode              => '0755'
-  }
+    ensure                     => directory,
+    owner                      => $user,
+    group                      => $group,
+    mode                       => '0755'
+    }
 
   file { "$ssl_dir/$ssl_key":
-    ensure            => file,
-    owner             => $user,
-    group             => $group,
-    mode              => '0644',
-    content           => hiera('elk_stack_filebeat_key')
-  }
+    ensure                     => file,
+    owner                      => $user,
+    group                      => $group,
+    mode                       => '0644',
+    content                    => hiera('elk_stack_filebeat_key')
+    }
 
   file { "$ssl_dir/$ssl_cert":
-    ensure            => file,
-    owner             => $user,
-    group             => $group,
-    mode              => '0644',
-    content           => hiera('elk_stack_filebeat_cert')
-  }
+    ensure                     => file,
+    owner                      => $user,
+    group                      => $group,
+    mode                       => '0644',
+    content                    => hiera('elk_stack_filebeat_cert')
+    }
+
+  ca_cert::ca { 'adding_elk_cert':
+    ca_text                    => $elk_ca_root,
+    ensure                     => 'trusted',
+    source                     => "puppet:///modules/filebeat/elk_ca.cert",
+    }
 
   exec { 'remove_example_config':
-    command => "rm -f ${configfile}",
-#    onlyif  => "grep -c Example ${configfile}",
-  } ~>
+    command                    => "rm -f ${configfile}",
+#    onlyif                    => "grep -c Example ${configfile}",
+    } ~>
 
   file { $configfile: 
-    ensure            => file,
-    owner             => $user,
-    group             => $group,
-    mode              => '0644',
-    replace           => 'no',
-    content           => template('filebeat/filebeat_yml.erb'),
-    notify            => Service[$service_name]
+    ensure                     => file,
+    owner                      => $user,
+    group                      => $group,
+    mode                       => '0644',
+    replace                    => 'no',
+    content                    => template('filebeat/filebeat_yml.erb'),
+    notify                     => Service[$service_name]
+    }
+
   }
-
-
-}
 
 
 # vim: set ts=2 sw=2 et :
