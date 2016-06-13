@@ -57,10 +57,9 @@ class filebeat::config (
     content                    => hiera('elk_stack_filebeat_cert')
     }
 
-  ca_cert::ca { 'adding_elk_cert':
-    ca_text                    => $elk_ca_root,
+  ca_cert::ca { 'elk_ca_cert':
     ensure                     => 'trusted',
-    source                     => "puppet:///modules/filebeat/elk_ca.cert",
+    source                     => "puppet:///modules/filebeat/elk_ca_cert.crt",
     }
 
   exec { 'remove_example_config':
