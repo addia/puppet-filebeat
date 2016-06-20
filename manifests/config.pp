@@ -62,9 +62,16 @@ class filebeat::config (
     source                     => "puppet:///modules/filebeat/elk_ca_cert.crt",
     }
 
+  exec { 'remove_broken_config':
+    command                    => "rm -f ${configfile}; systemctl disable ${package_name}; systemctl stop ${package_name}",
+    onlyif                     => "grep -c FileStateOS  ${configfile}",
+    path                       => "/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin",
+    } ~>
+
   exec { 'remove_example_config':
-    command                    => "rm -f ${configfile}",
-#    onlyif                    => "grep -c Example ${configfile}",
+    command                    => "rm -f ${configfile}; systemctl disable ${package_name}; systemctl stop ${package_name}",
+    onlyif                     => "grep -c Example ${configfile}",
+    path                       => "/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin",
     } ~>
 
   file { $configfile: 
