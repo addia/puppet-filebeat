@@ -21,11 +21,10 @@
 #     ssl_dir         = certificate file path
 #     ssl_key         = certificate key
 #     ssl_cert        = certificate file
-#     servertype      = logical definition for MQ service
 #     service_name    = systemd service file name
 #     systemd_file    = systemd service file including full path
-#     log_reveiver1   = log receiver for rabbitmq cluster
-#     log_reveiver2   = log receiver for rabbitmq cluster
+#     log_receiver    = one or more log receiver server names
+#     load_balanced   = true or false
 #
 #
 # ===========================
@@ -59,10 +58,10 @@ class filebeat (
   $ssl_dir            = $filebeat::params::ssl_dir,
   $ssl_key            = $filebeat::params::ssl_key,
   $ssl_cert           = $filebeat::params::ssl_cert,
-  $servertype         = $filebeat::params::servertype,
   $service_name       = $filebeat::params::service_name,
   $systemd_file       = $filebeat::params::systemd_file,
-  $log_reveiver       = $filebeat::params::log_reveiver
+  $log_reveiver       = $filebeat::params::log_reveiver,
+  $load_balanced      = $filebeat::params::load_balanced
 ) inherits filebeat::params {
 
     notify { "## --->>> Installing and configuring ${package_name}": }

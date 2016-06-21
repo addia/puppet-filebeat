@@ -51,7 +51,9 @@ filebeat:
 # Output Configuration
 output:
   logstash:
-    hosts: [ "<%= @log_receiver %>:5044" ]
+    hosts: [ "<%= @log_receiver.map { |n| "\'#{n}:5044\'" }.join(', ') %>" ]
+
+    loadbalance: <%= @load_balanced %>
 
     tls:
       certificate: "<%= @filebeat_cert %>"

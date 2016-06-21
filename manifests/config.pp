@@ -21,7 +21,8 @@ class filebeat::config (
   $ssl_dir                     = $filebeat::params::ssl_dir,
   $ssl_key                     = $filebeat::params::ssl_key,
   $ssl_cert                    = $filebeat::params::ssl_cert,
-  $service_name                = $filebeat::params::service_name
+  $service_name                = $filebeat::params::service_name,
+  $load_balanced               = $filebeat::params::load_balanced
 ) inherits filebeat::params {
 
   notify { "## --->>> Creating config files for: ${package_name}": }
@@ -71,24 +72,11 @@ class filebeat::config (
     source                     => "puppet:///modules/filebeat/elk_ca_cert.crt",
     }
 
-  exec { 'remove_broken_config':
-    command                    => "rm -f ${configfile}; systemctl disable ${package_name}; systemctl stop ${package_name}",
-    onlyif                     => "grep -c FileStateOS  ${configfile}",
-    path                       => "/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin",
-    } ~>
-
-  exec { 'remove_example_config':
-    command                    => "rm -f ${configfile}; systemctl disable ${package_name}; systemctl stop ${package_name}",
-    onlyif                     => "grep -c Example ${configfile}",
-    path                       => "/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin",
-    } ~>
-
   file { $configfile: 
     ensure                     => file,
     owner                      => $user,
     group                      => $group,
     mode                       => '0644',
-    replace                    => 'no',
     content                    => template('filebeat/filebeat_yml.erb'),
     notify                     => Service[$service_name]
     }
