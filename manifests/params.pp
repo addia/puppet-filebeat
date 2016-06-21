@@ -17,6 +17,8 @@ class filebeat::params {
   $group            = 'root'
   $configfile       = '/etc/filebeat/filebeat.yml'
   $config_dir       = '/etc/filebeat/filebeat.d'
+  $state_dir        = '/var/lib/filebeat'
+  $state_file       = 'filebeat.state'
   $ssl_dir          = '/etc/filebeat/ssl'
   $ssl_key          = 'filebeat.key'
   $ssl_cert         = 'filebeat.crt'

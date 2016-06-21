@@ -16,6 +16,8 @@ class filebeat::config (
   $group                       = $filebeat::params::group,
   $configfile                  = $filebeat::params::configfile,
   $config_dir                  = $filebeat::params::config_dir,
+  $state_dir                   = $filebeat::params::state_dir,
+  $state_file                  = $filebeat::params::state_file,
   $ssl_dir                     = $filebeat::params::ssl_dir,
   $ssl_key                     = $filebeat::params::ssl_key,
   $ssl_cert                    = $filebeat::params::ssl_cert,
@@ -28,6 +30,13 @@ class filebeat::config (
   $filebeat_key                = "$ssl_dir/$ssl_key"
 
   file { $config_dir: 
+    ensure                     => directory,
+    owner                      => $user,
+    group                      => $group,
+    mode                       => '0755'
+    }
+
+  file { $state_dir: 
     ensure                     => directory,
     owner                      => $user,
     group                      => $group,

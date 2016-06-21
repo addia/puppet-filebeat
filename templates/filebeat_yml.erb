@@ -42,7 +42,7 @@ filebeat:
   idle_timeout: 5s
 
   # Name of the registry file. 
-  registry_file: <%= @configfile %>
+  registry_file: "<%= @state_dir %>/<%= @state_file %>"
 
   # Full Path to directory with additional prospector configuration files.
   config_dir: <%= @config_dir %>

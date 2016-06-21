@@ -16,6 +16,8 @@
 #     group           = run as group
 #     configfile      = configuration file including path
 #     config_dir      = prospector plug-in directory path
+#     state_dir       = the state directory
+#     state_file      = state file to keep pointer
 #     ssl_dir         = certificate file path
 #     ssl_key         = certificate key
 #     ssl_cert        = certificate file
@@ -52,6 +54,8 @@ class filebeat (
   $group              = $filebeat::params::group,
   $configfile         = $filebeat::params::configfile,
   $config_dir         = $filebeat::params::config_dir,
+  $state_dir          = $filebeat::params::state_dir,
+  $state_file         = $filebeat::params::state_file,
   $ssl_dir            = $filebeat::params::ssl_dir,
   $ssl_key            = $filebeat::params::ssl_key,
   $ssl_cert           = $filebeat::params::ssl_cert,
