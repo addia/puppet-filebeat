@@ -51,7 +51,7 @@ filebeat:
 # Output Configuration
 output:
   logstash:
-    hosts: [ "<%= @log_receiver.map { |n| "\'#{n}:5044\'" }.join(', ') %>" ]
+    hosts: [ <%= @log_receiver.map { |n| "\"#{n}:5044\"" }.join(', ') %> ]
 
     loadbalance: <%= @load_balanced %>
 
