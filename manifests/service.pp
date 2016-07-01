@@ -13,7 +13,7 @@ class filebeat::service (
   $systemd_file    = $filebeat::params::systemd_file,
   $service_name    = $filebeat::params::service_name,
   $package_name    = $filebeat::params::package_name
-  ) inherits filebeat::params {
+) inherits filebeat::params {
   
   notify { "## --->>> Configuring service: ${package_name}": }
 
@@ -22,9 +22,9 @@ class filebeat::service (
     enable         => true,
     hasrestart     => true,
     hasstatus      => true
-  }
+    }
 
-}
+  }
 
 
 # vim: set ts=2 sw=2 et :

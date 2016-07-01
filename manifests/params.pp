@@ -11,7 +11,6 @@
 #
 class filebeat::params {
 
-  $ensure           = 'latest'
   $package_name     = 'filebeat'
   $user             = 'root'
   $group            = 'root'

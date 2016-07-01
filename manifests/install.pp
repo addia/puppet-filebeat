@@ -10,18 +10,22 @@
 # ===========================
 #
 class filebeat::install (
-  $ensure        = $filebeat::params::ensure,
   $package_name  = $filebeat::params::package_name
-  ) inherits filebeat::params {
+) inherits filebeat::params {
 
   include filebeat::repo
 
   notify { "## --->>> Installing package: ${package_name}": }
 
   package { $package_name:
-    ensure => $ensure
+    ensure => latest,
+    }
+
+  package { 'logstash-forwarder':
+    ensure => purged,
+    }
+
   }
-}
 
 
 # vim: set ts=2 sw=2 et :

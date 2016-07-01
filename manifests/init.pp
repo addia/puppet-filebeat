@@ -10,7 +10,6 @@
 # Document all Parameters:
 #
 #   Explanation of what this parameter affects and what it defaults to.
-#     ensure          = package install status
 #     package_name    = the package name to install and configure
 #     user            = run as user
 #     group           = run as group
@@ -47,7 +46,6 @@
 #
 #
 class filebeat (
-  $ensure             = $filebeat::params::ensure,
   $package_name       = $filebeat::params::package_name,
   $user               = $filebeat::params::user,
   $group              = $filebeat::params::group,
@@ -72,7 +70,7 @@ class filebeat (
     class { '::filebeat::service': } ->
     anchor { 'filebeat::end': }
 
-}
+  }
 
 
 # vim: set ts=2 sw=2 et :

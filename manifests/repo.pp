@@ -11,7 +11,7 @@
 #
 class filebeat::repo (
   $package_name       = $filebeat::params::package_name
-  ) inherits filebeat::params {
+) inherits filebeat::params {
 
   $arch               = $::architecture
 
@@ -26,8 +26,8 @@ class filebeat::repo (
         gpgcheck      => 1,
         gpgkey        => 'https://packages.elastic.co/GPG-KEY-elasticsearch',
         enabled       => 1,
+        }
       }
-    }
     'Debian': {
       apt::source { 'beats':
         location      => 'https://packages.elastic.co/beats/apt',
@@ -35,19 +35,19 @@ class filebeat::repo (
         repos         => 'main',
         key           => 'D88E42B4',
         key_source    => 'https://packages.elastic.co/GPG-KEY-elasticsearch',
+        }
       }
-    }
 
     'Archlinux': {
       fail("\"${::osfamily}\" the \"${package_name}\" is provided via the AUR repository.")
-    }
+      }
       
     default: {
       fail("\"${package_name}\" provides no repository information for OSfamily \"${::osfamily}\"")
+      }
     }
-  }
 
-}
+  }
 
 
 # vim: set ts=2 sw=2 et :
