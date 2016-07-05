@@ -21,7 +21,7 @@ class filebeat::params {
   $ssl_dir          = '/etc/filebeat/ssl'
   $ssl_key          = 'filebeat.key'
   $ssl_cert         = 'filebeat.crt'
-  $cert_checking    = hiera('elk_stack_log_receiver_cert_checking')
+  $cert_insecure    = hiera('elk_stack_log_receiver_cert_insecure')
   $service_name     = "${package_name}.service"
   $systemd_file     = "/usr/lib/systemd/system/${service_name}"
   $log_receiver     = hiera('elk_stack_log_receiver_servers')

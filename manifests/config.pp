@@ -21,7 +21,7 @@ class filebeat::config (
   $ssl_dir                     = $filebeat::params::ssl_dir,
   $ssl_key                     = $filebeat::params::ssl_key,
   $ssl_cert                    = $filebeat::params::ssl_cert,
-  $cert_checking               = $filebeat::params::cert_checking,
+  $cert_insecure               = $filebeat::params::cert_insecure,
   $service_name                = $filebeat::params::service_name,
   $load_balanced               = $filebeat::params::load_balanced
 ) inherits filebeat::params {

@@ -20,7 +20,7 @@
 #     ssl_dir         = certificate file path
 #     ssl_key         = certificate key
 #     ssl_cert        = certificate file
-#     cert_checking   = validate the ssl cert (true or false)
+#     cert_insecure   = the ssl cert insecure (true or false)
 #     service_name    = systemd service file name
 #     systemd_file    = systemd service file including full path
 #     log_receiver    = one or more log receiver server names
@@ -57,7 +57,7 @@ class filebeat (
   $ssl_dir            = $filebeat::params::ssl_dir,
   $ssl_key            = $filebeat::params::ssl_key,
   $ssl_cert           = $filebeat::params::ssl_cert,
-  $cert_checking      = $filebeat::params::cert_checking,
+  $cert_insecure      = $filebeat::params::cert_insecure,
   $service_name       = $filebeat::params::service_name,
   $systemd_file       = $filebeat::params::systemd_file,
   $log_reveiver       = $filebeat::params::log_reveiver,

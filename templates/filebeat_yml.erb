@@ -58,7 +58,7 @@ output:
     tls:
       certificate: "<%= @filebeat_cert %>"
       certificate_key: "<%= @filebeat_key %>"
-      insecure: <%= @cert_checking %>
+      insecure: <%= @cert_insecure %>
 
     index: filebeat
 
