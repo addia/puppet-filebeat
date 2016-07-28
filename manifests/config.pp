@@ -68,6 +68,21 @@ class filebeat::config (
     content                    => hiera('elk_stack_filebeat_cert')
     }
 
+  ca_cert::ca { 'webops-ca':
+    ensure                     => 'trusted',
+    source                     => "puppet:///modules/filebeat/webops-ca.crt",
+    }
+
+  ca_cert::ca { 'lr_roota1':
+    ensure                     => 'trusted',
+    source                     => "puppet:///modules/filebeat/lr_roota1.crt",
+    }
+
+  ca_cert::ca { 'lr_rootca':
+    ensure                     => 'trusted',
+    source                     => "puppet:///modules/filebeat/lr_rootca.crt",
+    }
+
   ca_cert::ca { 'elk_ca_cert':
     ensure                     => 'trusted',
     source                     => "puppet:///modules/filebeat/elk_ca_cert.crt",
