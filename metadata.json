@@ -1,13 +1,12 @@
 {
   "name": "puppet-filebeat",
   "version": "0.0.4",
-  "author": "LandRegistry, Addi",
+  "author": "LandRegistry, Addi Abel",
   "summary": "This puppet module installs and configures a Lightweight Shipper for all Log Data",
   "license": "MIT",
   "source": "https://github.com/LandRegistry-Ops/puppet-filebeat",
   "project_page": "https://github.com/LandRegistry-Ops/puppet-filebeat",
   "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
-  ],
-  "data_provider": null
+    {"name":"puppetlabs/stdlib","version_requirement":">=3.0.0 <5.0.0"}
+  ]
 }
