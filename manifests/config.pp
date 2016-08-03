@@ -83,11 +83,6 @@ class filebeat::config (
     source                     => "puppet:///modules/filebeat/lr_rootca.crt",
     }
 
-  ca_cert::ca { 'elk_ca_cert':
-    ensure                     => 'trusted',
-    source                     => "puppet:///modules/filebeat/elk_ca_cert.crt",
-    }
-
   file { $configfile: 
     ensure                     => file,
     owner                      => $user,
