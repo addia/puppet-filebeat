@@ -14,7 +14,7 @@
    "manifests/params.pp": "d58ac719db98ca6cb0dd888cf508b74a",
    "manifests/init.pp": "7831d7319bef7c0ee01b267b446d64d7",
    "manifests/config.pp": "2e9c97735a3fc59fc58b81e352d10884",
-   "templates/filebeat_yml.erb": "c502c0e7f530f1a174e114462117d428",
+   "templates/filebeat_yml.erb": "f61ddecef91ac79876ee0507feadd763",
    "tests/init.pp": "9a96b2a4513e791175f55bcca228405c",
    "Vagrantfile": "52033efd536f75e14bacdeebcc4a46d2",
    "README.md": "474150419dd69044ab999e55bcf83831",

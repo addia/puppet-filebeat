@@ -29,11 +29,12 @@ filebeat:
         - /var/log/syslog
 
       input_type: log
-
-      ignore_older: 24h
-
       document_type: syslog
 
+      ignore_older: 12h
+      scan_frequency: 15s
+      backoff: 15s
+      backoff_factor: 120s
 
   # Event count spool threshold
   spool_size: 1024
