@@ -13,21 +13,23 @@ class filebeat::service (
   $systemd_file         = $filebeat::params::systemd_file,
   $service_name         = $filebeat::params::service_name,
   $package_name         = $filebeat::params::package_name
-) inherits filebeat::params {
-  
+) {
+
+  include filebeat::params
+
   notify { "## --->>> Configuring service: ${package_name}": }
 
   service { $service_name:
-    ensure              => running,
-    enable              => true,
-    hasrestart          => true,
-    hasstatus           => true
+    ensure     => running,
+    enable     => true,
+    hasrestart => true,
+    hasstatus  => true
     }
 
   exec { 'remove_initd_filebeat':
-    command             => "rm -f /etc/rc.d/init.d/filebeat",
-    path                => "/sbin:/bin:/usr/sbin:/usr/bin",
-    onlyif              => "test -x /etc/rc.d/init.d/filebeat",
+    command => 'rm -f /etc/rc.d/init.d/filebeat',
+    path    => '/sbin:/bin:/usr/sbin:/usr/bin',
+    onlyif  => 'test -x /etc/rc.d/init.d/filebeat',
     }
 
   }
